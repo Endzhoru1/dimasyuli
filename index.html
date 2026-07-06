@@ -38,7 +38,6 @@
             left: 0;
             width: 100%;
             height: 100vh;
-            /* Menggunakan background foto prewedding estetik bali (bisa diganti URL-nya nanti) */
             background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.65)), 
                         url('https://drive.google.com/file/d/1VS5ZgXj-YAoj3DJo0fUhQJPH_xFczKra/view?usp=sharing?auto=format&fit=crop&w=1200&q=80') no-repeat center center/cover;
             display: flex;
@@ -114,7 +113,7 @@
             transform: scale(1.05);
         }
 
-        /* 2. KONTEN UTAMA (KELENGKAPAN UNDANGAN) */
+        /* 2. KONTEN UTAMA */
         #main-content {
             display: none;
             opacity: 0;
@@ -194,7 +193,6 @@
             line-height: 1.5;
         }
 
-        /* Acara Acara */
         .bg-vasi {
             background-color: #F0EAE1;
         }
@@ -260,6 +258,12 @@
         .event-card p {
             margin-bottom: 8px;
             font-size: 0.95rem;
+            text-align: left;
+        }
+
+        .event-card p i {
+            width: 20px;
+            text-align: center;
         }
 
         .btn-maps {
@@ -281,7 +285,7 @@
             color: var(--white);
         }
 
-        /* 3. HADIAH DIGITAL & REKENING TRF */
+        /* 3. HADIAH DIGITAL */
         .gift-container {
             display: flex;
             flex-direction: column;
@@ -302,7 +306,7 @@
         .bank-logo {
             font-size: 1.8rem;
             font-weight: bold;
-            color: #00569C; /* Contoh warna bank */
+            color: #00569C;
             font-family: 'Cinzel', serif;
             margin-bottom: 10px;
         }
@@ -354,14 +358,13 @@
             position: relative;
         }
         
-        /* Menggunakan visual representasi QRIS jika gambar belum dipasang */
         .qris-image::before {
-            content: '[ Tempat Foto / Screenshot QRIS Anda ]';
+            content: '[ Tempat Foto / Screenshot QRIS ]';
             padding: 10px;
             text-align: center;
         }
 
-        /* 4. FORM RSVP & LIVE GUESTBOOK (DATABASE INTERNAL) */
+        /* 4. FORM RSVP & GUESTBOOK */
         #rsvp-form-container {
             background: var(--white);
             padding: 35px 25px;
@@ -432,7 +435,6 @@
             background: #614024;
         }
 
-        /* Tampilan Buku Tamu (Live Guestbook) */
         .guestbook-container {
             margin-top: 40px;
             max-width: 550px;
@@ -493,7 +495,7 @@
             color: #444;
         }
 
-        /* Musik Kontrol Floading */
+        /* Musik Kontrol Floating */
         #music-btn {
             position: fixed;
             bottom: 25px;
@@ -526,42 +528,18 @@
         
         <button class="btn-open" onclick="bukaUndangan()">
             <i class="fa-solid fa-envelope-open-text" style="margin-right: 8px;"></i> Buka Undangan
-            <script>
-function bukaUndangan() {
-    // 1. Kode Anda untuk membuka/memunculkan undangan di sini...
-    // (misalnya menghilangkan cover, memunculkan konten)
-
-    // 2. Kode untuk memutar musik SoundCloud
-    const soundCloudPlayer = document.getElementById('sound-cloud-player');
-    if (soundCloudPlayer) {
-        let currentSrc = soundCloudPlayer.src;
-        soundCloudPlayer.src = currentSrc.replace('auto_play=false', 'auto_play=true');
-    }
-}
-</script>
         </button>
     </div>
 
     <!-- AUDIO BACKSOUND TRADISIONAL -->
-    <audio id="backsound" loop>
-        <!-- Menggunakan instrumen royalty-free, silakan ganti URL mp3 jika memiliki file gending Bali sendiri -->
-        <iframe id="sound-cloud-player" 
-        src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/fahma-alvia-luthfia-hakiki/tulus-teman-hidup&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false" 
-        width="100%" 
-        height="166" 
-        scrolling="no" 
-        frameborder="no" 
-        allow="autoplay" 
-        style="display: none;"> <!-- Sembunyikan player agar tidak merusak desain website -->
-</iframe>
-    </audio>
+    <!-- Ganti URL src di bawah ini dengan link file .mp3 musik pilihanmu -->
+    <audio id="backsound" loop src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
 
     <div id="music-btn" onclick="toggleMusic()" style="display: none;">
         <i id="music-icon" class="fa-solid fa-music"></i>
     </div>
 
-
-    <!-- 2. KONTEN UTAMA (KELENGKAPAN UNDANGAN) -->
+    <!-- 2. KONTEN UTAMA -->
     <main id="main-content">
         
         <!-- Pembuka Adat Bali -->
@@ -574,7 +552,7 @@ function bukaUndangan() {
             <p style="font-size: 0.95rem; line-height: 1.6;">
                 Atas Asung Kertha Wara Nugraha Ida Sang Hyang Widhi Wasa, kami bermaksud mengundang Bapak/Ibu/Saudara/i pada upacara Pawiwahan (Pernikahan) putra-putri kami.
             </p>
-            <div class="ornament"><i class="fa-solid fa-heart-garland"></i> ♦ 🔱 ♦</div>
+            <div class="ornament">♦ 🔱 ♦</div>
         </section>
 
         <!-- Profil Kedua Mempelai -->
@@ -602,7 +580,7 @@ function bukaUndangan() {
                     <div class="mempelai-fullname">Ni Kadek Yulianti</div>
                     <p class="parents">
                         Putri Kedua dari Pasangan:<br>
-                        <strong></strong> & <strong></strong>
+                        <strong>I Ketut Gede</strong> & <strong>Ni Nyoman Rai</strong>
                         <br><span style="font-size: 0.8rem; display:block; margin-top:5px;">Karangasem</span>
                     </p>
                 </div>
@@ -628,17 +606,24 @@ function bukaUndangan() {
                 <p><i class="fa-regular fa-calendar-days" style="color: var(--accent); margin-right: 8px;"></i> <strong>Senin, 17 Agustus 2026</strong></p>
                 <p><i class="fa-regular fa-clock" style="color: var(--accent); margin-right: 8px;"></i> 08.00 WITA - Selesai</p>
                 <p><i class="fa-solid fa-location-dot" style="color: var(--accent); margin-right: 10px;"></i> Nassybe Homestay, Br. Madangan Kelod, Petak, Gianyar</p>
-                <a href="google.com/maps/place/Jl.+Bakbakan-Petak+Kaja+16,+Petak,+Kec.+Gianyar,+Kabupaten+Gianyar,+Bali+80515/data=!4m2!3m1!1s0x2dd2178791bbe563:0x24a4478c2aa5c12d?sa=X&ved=1t:242&ictx=111" target="_blank" class="btn-maps">
+                <a href="https://google.com/maps" target="_blank" class="btn-maps">
                     <i class="fa-solid fa-map-location-dot"></i> Buka Google Maps
                 </a>
             </div>
 
-            <!-- Card Sesi 2: Resepsi -->
+            <!-- Card Sesi 2: Resepsi (Sudah Diperbaiki) -->
             <div class="event-card">
-
+                <h3>Resepsi Pernikahan</h3>
+                <p><i class="fa-regular fa-calendar-days" style="color: var(--accent); margin-right: 8px;"></i> <strong>Senin, 17 Agustus 2026</strong></p>
+                <p><i class="fa-regular fa-clock" style="color: var(--accent); margin-right: 8px;"></i> 12.00 WITA - Selesai</p>
+                <p><i class="fa-solid fa-location-dot" style="color: var(--accent); margin-right: 10px;"></i> Nassybe Homestay, Br. Madangan Kelod, Petak, Gianyar</p>
+                <a href="https://google.com/maps" target="_blank" class="btn-maps">
+                    <i class="fa-solid fa-map-location-dot"></i> Buka Google Maps
+                </a>
+            </div>
         </section>
 
-        <!-- 3. HADIAH DIGITAL (TRANSFER BANK & QRIS) -->
+        <!-- 3. HADIAH DIGITAL -->
         <section class="bg-vasi">
             <h2 class="section-title">Hadiah Digital</h2>
             <p style="font-size: 0.9rem; max-width: 500px; margin: 0 auto 20px auto; line-height: 1.5;">
@@ -646,7 +631,6 @@ function bukaUndangan() {
             </p>
 
             <div class="gift-container">
-                <!-- Data Bank Transfer -->
                 <div class="bank-card">
                     <div class="bank-logo"><i class="fa-solid fa-building-columns"></i> BANK BCA</div>
                     <p style="font-size: 0.85rem; color:#666;">A/N Dimas Pradnya Putra</p>
@@ -656,18 +640,16 @@ function bukaUndangan() {
                     </button>
                 </div>
 
-                <!-- QRIS Code -->
                 <div class="qris-box">
                     <div class="bank-logo" style="color: #E61E26;"><i class="fa-solid fa-qrcode"></i> QRIS PUNIA</div>
                     <p style="font-size: 0.85rem; color:#666; margin-bottom: 10px;">Pernikahan Dimas & Yuli</p>
-                    <!-- Gambar QRIS -->
                     <div class="qris-image"></div>
                     <p style="font-size: 0.75rem; color: #888; font-style: italic;">Scan menggunakan aplikasi M-Banking atau E-Wallet pilihan Anda</p>
                 </div>
             </div>
         </section>
 
-        <!-- 4. FORM RSVP & LIVE GUESTBOOK (DATABASE SISI KLIEN) -->
+        <!-- 4. FORM RSVP & LIVE GUESTBOOK -->
         <section>
             <h2 class="section-title">Konfirmasi Kehadiran</h2>
             <p style="font-size: 0.9rem; color: #6E6259; margin-bottom: 30px;">Silakan isi formulir di bawah untuk konfirmasi kehadiran dan doa restu:</p>
@@ -702,13 +684,12 @@ function bukaUndangan() {
                 </form>
             </div>
 
-            <!-- Tempat Menampilkan Daftar Ucapan (Buku Tamu Nyata) -->
             <div class="guestbook-container">
                 <div class="guestbook-title">
                     <i class="fa-regular fa-comments"></i> Ucapan & Doa Restu (<span id="count-ucapan">0</span>)
                 </div>
                 <div class="comment-list" id="comment-list-wrapper">
-                    <!-- Data ucapan akan di-render di sini secara otomatis oleh JavaScript -->
+                    <!-- Ditangani JS -->
                 </div>
             </div>
         </section>
@@ -737,23 +718,19 @@ function bukaUndangan() {
 
         // 2. Fungsi Buka Undangan & Play Music
         function bukaUndangan() {
-            // Animasi Cover slide ke atas
             document.getElementById('cover').style.transform = 'translateY(-100vh)';
             
-            // Tampilkan Konten Utama dengan efek transisi smooth
             const mainContent = document.getElementById('main-content');
             mainContent.style.display = 'block';
             setTimeout(() => {
                 mainContent.style.opacity = '1';
             }, 50);
 
-            // Tampilkan tombol kontrol musik floading
             document.getElementById('music-btn').style.display = 'flex';
             
-            // Mainkan musik otomatis (Aman dari proteksi browser karena dipicu interaksi klik user)
-            audio.play().catch(err => console.log("Autoplay ditangguhkan browser"));
+            // Play audio langsung lewat tag native HTML5
+            audio.play().catch(err => console.log("Autoplay ditangguhkan browser:", err));
             
-            // Muat ucapan yang tersimpan di database lokal saat web dibuka
             loadUcapan();
         }
 
@@ -798,7 +775,6 @@ function bukaUndangan() {
         }
 
         // 6. ENGINE GUESTBOOK (DATABASE LOKAL SISI KLIEN)
-        // Menyimpan dan memuat ucapan tamu tanpa API berbayar ataupun WhatsApp
         function simpanUcapan(event) {
             event.preventDefault();
             
@@ -809,19 +785,11 @@ function bukaUndangan() {
 
             const dataBaru = { nama, kehadiran, pesan, waktu };
 
-            // Ambil data lama dari localStorage atau buat array baru jika masih kosong
             let daftarUcapan = JSON.parse(localStorage.getItem('database_undangan_dimas_yuli')) || [];
-            
-            // Masukkan data baru ke urutan paling atas
             daftarUcapan.unshift(dataBaru);
-
-            // Simpan kembali ke localStorage
             localStorage.setItem('database_undangan_dimas_yuli', JSON.stringify(daftarUcapan));
 
-            // Reset Form (kecuali nama tamu)
             document.getElementById('input-pesan').value = '';
-            
-            // Segarkan tampilan daftar ucapan di layar
             loadUcapan();
             
             alert('Terima kasih! Konfirmasi dan doa restu Anda telah berhasil disimpan dalam sistem.');
@@ -831,19 +799,14 @@ function bukaUndangan() {
             const wrapper = document.getElementById('comment-list-wrapper');
             const counter = document.getElementById('count-ucapan');
             
-            // Ambil data dari localStorage
             let daftarUcapan = JSON.parse(localStorage.getItem('database_undangan_dimas_yuli')) || [];
-            
-            // Update counter jumlah pesan
             counter.innerText = daftarUcapan.length;
 
-            // Jika belum ada pesan, berikan placeholder estetik
             if (daftarUcapan.length === 0) {
                 wrapper.innerHTML = `<p style="font-size:0.85rem; color:#888; text-align:center; padding: 20px 0;">Belum ada ucapan. Jadilah yang pertama memberikan doa restu!</p>`;
                 return;
             }
 
-            // Bersihkan wrapper dan render ulang semua elemen kartu komentar
             wrapper.innerHTML = '';
             daftarUcapan.forEach(item => {
                 const badgeClass = item.kehadiran === 'Hadir' ? 'status-hadir' : 'status-tidak';
