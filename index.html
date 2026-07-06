@@ -526,6 +526,19 @@
         
         <button class="btn-open" onclick="bukaUndangan()">
             <i class="fa-solid fa-envelope-open-text" style="margin-right: 8px;"></i> Buka Undangan
+            <script>
+function bukaUndangan() {
+    // 1. Kode Anda untuk membuka/memunculkan undangan di sini...
+    // (misalnya menghilangkan cover, memunculkan konten)
+
+    // 2. Kode untuk memutar musik SoundCloud
+    const soundCloudPlayer = document.getElementById('sound-cloud-player');
+    if (soundCloudPlayer) {
+        let currentSrc = soundCloudPlayer.src;
+        soundCloudPlayer.src = currentSrc.replace('auto_play=false', 'auto_play=true');
+    }
+}
+</script>
         </button>
     </div>
 
