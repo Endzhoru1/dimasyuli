@@ -32,15 +32,19 @@
         }
 
         /* 1. HALAMAN PEMBUKA (COVER) - PREMIUM OVERLAY */
-        #cover {
+      #cover {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100vh;
-            /* GANTI LINK DI BAWAH INI UNTUK FOTO BACKGROUND COVER UTAMA */
-            background: linear-gradient(rgba(44, 30, 18, 0.5), rgba(44, 30, 18, 0.7)), 
-                        url('https://drive.google.com/file/d/1VS5ZgXj-YAoj3DJo0fUhQJPH_xFczKra/view?fit=crop&w=1200&q=80') no-repeat center center/cover;
+            /* Menggunakan link direct download foto Google Drive kamu */
+            background-image: linear-gradient(rgba(44, 30, 18, 0.2), rgba(44, 30, 18, 0.4)), 
+                              url('https://docs.google.com/uc?export=download&id=1VS5ZgXj-YAoj3DJo0fUhQJPH_xFczKra');
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: contain; /* Membuat foto terlihat utuh 100% tanpa terpotong */
+            background-color: #2C1E12; /* Warna pengisi area kosong jika rasio layar HP berbeda dengan foto */
             display: flex;
             flex-direction: column;
             justify-content: center;
