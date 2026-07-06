@@ -532,7 +532,15 @@
     <!-- AUDIO BACKSOUND TRADISIONAL -->
     <audio id="backsound" loop>
         <!-- Menggunakan instrumen royalty-free, silakan ganti URL mp3 jika memiliki file gending Bali sendiri -->
-        <source src="https://on.soundcloud.com/ctTCC3M0K6XiUXGgMD" type="audio/mpeg">
+        <iframe id="sound-cloud-player" 
+        src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/fahma-alvia-luthfia-hakiki/tulus-teman-hidup&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false" 
+        width="100%" 
+        height="166" 
+        scrolling="no" 
+        frameborder="no" 
+        allow="autoplay" 
+        style="display: none;"> <!-- Sembunyikan player agar tidak merusak desain website -->
+</iframe>
     </audio>
 
     <div id="music-btn" onclick="toggleMusic()" style="display: none;">
