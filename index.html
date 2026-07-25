@@ -894,54 +894,99 @@
             });
         }
 
-        // 6. ENGINE GUESTBOOK LOCAL STORAGE
-        function simpanUcapan(event) {
+// 6. ENGINE GUESTBOOK ONLINE (GOOGLE SHEETS API)
+        // Pastikan URL di bawah ini sudah diganti dengan Web App URL milik Anda (akhiran /exec)
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwz23fHrxts3hFAroEWyKMNdAd_roq3rxTfZyTIlgu6Rt9_76EhUYi2SZWU-bjOry43SQ/exec";
+
+        // 1. Simpan Ucapan ke Google Sheets Online
+        async function simpanUcapan(event) {
             event.preventDefault();
             
-            const nama = document.getElementById('input-nama').value;
-            const kehadiran = document.querySelector('input[name="kehadiran"]:checked').value;
-            const pesan = document.getElementById('input-pesan').value;
-            const waktu = new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+            const submitBtn = document.querySelector('.btn-submit');
+            const nama = document.getElementById('input-nama').value.trim();
+            const radioKehadiran = document.querySelector('input[name="kehadiran"]:checked');
+            const kehadiran = radioKehadiran ? radioKehadiran.value : 'Hadir';
+            const pesan = document.getElementById('input-pesan').value.trim();
 
-            const dataBaru = { nama, kehadiran, pesan, waktu };
-
-            let daftarUcapan = JSON.parse(localStorage.getItem('db_undangan_v2')) || [];
-            daftarUcapan.unshift(dataBaru);
-            localStorage.setItem('db_undangan_v2', JSON.stringify(daftarUcapan));
-
-            document.getElementById('input-pesan').value = '';
-            loadUcapan();
-            
-            alert('Konfirmasi kehadiran dan ucapan Anda berhasil disimpan!');
-        }
-
-        function loadUcapan() {
-            const wrapper = document.getElementById('comment-list-wrapper');
-            const counter = document.getElementById('count-ucapan');
-            
-            let daftarUcapan = JSON.parse(localStorage.getItem('db_undangan_v2')) || [];
-            counter.innerText = daftarUcapan.length;
-
-            if (daftarUcapan.length === 0) {
-                wrapper.innerHTML = `<p style="font-size:0.85rem; color:#888; text-align:center; padding: 25px 0;">Belum ada ucapan. Jadilah yang pertama memberikan doa restu!</p>`;
+            if (!nama || !pesan) {
+                alert("Mohon isi nama dan ucapan Anda.");
                 return;
             }
 
-            wrapper.innerHTML = '';
-            daftarUcapan.forEach(item => {
-                const badgeClass = item.kehadiran === 'Hadir' ? 'status-hadir' : 'status-tidak';
-                const badgeText = item.kehadiran === 'Hadir' ? 'Hadir' : 'Tidak Hadir';
+            submitBtn.innerText = "Mengirim...";
+            submitBtn.disabled = true;
 
-                const commentCard = `
-                    <div class="comment-card">
-                        <div class="comment-header">
-                            <span class="comment-name">${item.nama}</span>
-                            <span class="comment-status ${badgeClass}">${badgeText}</span>
+            try {
+                await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ nama, kehadiran, pesan })
+                });
+
+                document.getElementById('input-pesan').value = '';
+                alert("Terima kasih! Ucapan Anda telah terkirim.");
+                
+                // Muat ulang daftar ucapan setelah 1 detik
+                setTimeout(loadUcapan, 1000);
+            } catch (err) {
+                alert("Gagal mengirim ucapan. Periksa koneksi Anda.");
+                console.error(err);
+            } finally {
+                submitBtn.innerText = "Kirim Konfirmasi";
+                submitBtn.disabled = false;
+            }
+        }
+
+        // 2. Muat Data Ucapan dari Google Sheets Online
+        async function loadUcapan() {
+            const wrapper = document.getElementById('comment-list-wrapper');
+            const countEl = document.getElementById('count-ucapan');
+
+            wrapper.innerHTML = '<p style="font-size: 0.85rem; color: #888; text-align: center; padding: 20px;">Memuat ucapan...</p>';
+
+            try {
+                const response = await fetch(SCRIPT_URL);
+                const daftarUcapan = await response.json();
+
+                countEl.innerText = daftarUcapan.length;
+
+                if (daftarUcapan.length === 0) {
+                    wrapper.innerHTML = '<p style="font-size: 0.85rem; color: #888; text-align: center; padding: 20px;">Belum ada ucapan. Be the first to leave a message!</p>';
+                    return;
+                }
+
+                wrapper.innerHTML = daftarUcapan.map(item => {
+                    const isHadir = item.kehadiran === 'Hadir';
+                    const statusClass = isHadir ? 'status-hadir' : 'status-tidak';
+                    
+                    return `
+                        <div class="comment-card">
+                            <div class="comment-header">
+                                <span class="comment-name">${escapeHtml(item.nama)}</span>
+                                <span class="comment-status ${statusClass}">${escapeHtml(item.kehadiran)}</span>
+                            </div>
+                            <div class="comment-text">${escapeHtml(item.pesan)}</div>
                         </div>
-                        <div class="comment-text">${item.pesan}</div>
-                        <div style="font-size:0.7rem; color:#A09286; text-align:right; margin-top:8px; font-weight:500;">${item.waktu}</div>
-                    </div>
-                `;
+                    `;
+                }).join('');
+
+            } catch (err) {
+                console.error(err);
+                wrapper.innerHTML = '<p style="font-size: 0.85rem; color: #888; text-align: center; padding: 20px;">Belum ada ucapan.</p>';
+            }
+        }
+
+        // 3. Helper Sanitasi HTML (Pencegah XSS)
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
                 wrapper.innerHTML += commentCard;
             });
         }
